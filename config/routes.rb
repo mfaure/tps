@@ -173,8 +173,6 @@ Rails.application.routes.draw do
     get 'procedures/archived' => 'procedures#archived'
     get 'procedures/draft' => 'procedures#draft'
     get 'procedures/path_list' => 'procedures#path_list'
-    get 'profile' => 'profile#show', as: :profile
-    post 'renew_api_token' => 'profile#renew_api_token', as: :renew_api_token
 
     get 'change_dossier_state' => 'change_dossier_state#index'
     post 'change_dossier_state' => 'change_dossier_state#check'
@@ -356,6 +354,9 @@ Rails.application.routes.draw do
         patch 'add_to_procedure'
       end
     end
+
+    get 'profil' => 'profil#show'
+    post 'renew_api_token' => 'profil#renew_api_token'
   end
 
   apipie
