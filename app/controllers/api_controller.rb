@@ -24,6 +24,15 @@ class APIController < ApplicationController
 
   def administrateur
     @administrateur ||= (authenticate_with_bearer_token || authenticate_with_param_token)
+
+    # to avoid accepting a request with an empty token
+    # should not happen as an empty token is serialized by ''
+    # and a adminsitrateur without token as admin.api_token == nil
+    if @administrateur&.api_token.blank?
+      @administrateur = nil
+    end
+
+    @administrateur
   end
 
   def authenticate_with_bearer_token

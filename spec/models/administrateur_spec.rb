@@ -8,14 +8,6 @@ describe Administrateur, type: :model do
     it { is_expected.to have_many(:procedures) }
   end
 
-  describe 'after_save' do
-    subject { described_class.new(email: 'toto@tps.com', password: 'password') }
-    before do
-      subject.save
-    end
-    it { expect(subject.api_token).not_to be_blank }
-  end
-
   describe 'generate_api_token' do
     let(:token) { 'bullshit' }
     let(:new_token) { 'pocket_master' }
