@@ -1,11 +1,27 @@
 #profile_page.container
   %h1 Profil
 
-  %p API TOKEN : #{@administrateur.api_token}
+  .card{ style: 'margin: 24px 0;' }
+    .card-title Jeton d'identification de l'API (token)
+    %p
+      Ce jeton est nécessaire pour effectuer des appels vers les api de demarches-simplifiees.fr.
+      %br
+      - if defined?(@token)
+        Jeton : 
+        %b= @token
+        %br
+        %br
+        Ce jeton ne pourra plus être affiché.
+      - else
+        Pour des raisons de sécurité, nous ne pouvons vous l'afficher que lors de sa génération.
+        %br
+        %br
+        Attention, si vous avez déjà des applications qui utilisent votre jeton, le regénérer bloquera leurs accès aux apis.
 
-  = link_to "Regénérer mon token",
-    renew_api_token_path,
-    method: :post,
-    class: "button primary",
-    data: { confirm: "Confirmez-vous la regénération de votre token ? Les applications qui l'utilisent actuellement seront bloquées.",
-            disable: true }
+    = link_to "Regénérer et afficher mon jeton",
+      renew_api_token_path,
+      method: :post,
+      class: "button primary",
+      style: "margin-top: 16px;",
+      data: { confirm: "Confirmez-vous la regénération de votre jeton ? Les applications qui l'utilisent actuellement seront bloquées.",
+              disable: true }
