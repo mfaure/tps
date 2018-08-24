@@ -805,6 +805,7 @@ DEPENDENCIES
   active_model_serializers
   administrate
   apipie-rails
+  bcrypt
   bootstrap-sass (~> 3.3.5)
   bootstrap-wysihtml5-rails (~> 0.3.3.8)
   brakeman
