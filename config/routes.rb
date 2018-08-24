@@ -357,6 +357,7 @@ Rails.application.routes.draw do
 
     get 'profil' => 'profil#show'
     post 'renew_api_token' => 'profil#renew_api_token'
+    get 'renew_api_token' => redirect('/profil')
   end
 
   apipie
