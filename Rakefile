@@ -13,6 +13,13 @@ task :lint do
   sh "yarn lint:js"
 end
 
+task :deploy_new do
+  domains = %w(ns3117861.ip-51-38-41.eu ns3119201.ip-51-38-180.eu)
+  domains.each do |domain|
+    sh "mina deploy domain=#{domain}"
+  end
+end
+
 task :deploy do
   domains = %w(37.187.249.111 149.202.72.152 149.202.198.6)
   domains.each do |domain|
