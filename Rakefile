@@ -14,9 +14,16 @@ task :lint do
 end
 
 task :deploy_new do
-  domains = %w(ns3117861.ip-51-38-41.eu ns3119201.ip-51-38-180.eu)
+  domains = %w(web1 web2)
   domains.each do |domain|
-    sh "mina deploy domain=#{domain}"
+    sh "mina deploy domain=#{domain} force_asset_precompile=true"
+  end
+end
+
+task :setup_new do
+  domains = %w(web1 web2)
+  domains.each do |domain|
+    sh "mina setup domain=#{domain} force_asset_precompile=true"
   end
 end
 
