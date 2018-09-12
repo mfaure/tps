@@ -25,7 +25,7 @@ class TypesDeChamp::LinkedDropDownListTypeDeChamp < TypeDeChamp
     chunked.map do |chunk|
       primary, *secondary = chunk
       secondary.unshift('')
-      [PRIMARY_PATTERN.match(primary)[1], secondary]
+      [PRIMARY_PATTERN.match(primary)&.[](1), secondary]
     end
   end
 end
