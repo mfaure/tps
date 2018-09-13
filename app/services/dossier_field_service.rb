@@ -66,7 +66,8 @@ class DossierFieldService
       filters.map do |filter|
         case filter['table']
         when 'self'
-          dossiers.where("? ILIKE ?", filter['column'], "%#{filter['value']}%")
+          date = filter['value'].to_date rescue nil
+          dossiers.where("DATE_TRUNC('day', dossiers.#{filter['column']}) = ?", date)
 
         when 'france_connect_information'
           dossiers
