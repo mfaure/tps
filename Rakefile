@@ -27,6 +27,20 @@ task :setup_new do
   end
 end
 
+task :deploy_dev_new do
+  domains = %w(web1.dev web2.dev)
+  domains.each do |domain|
+    sh "mina deploy domain=#{domain} force_asset_precompile=true"
+  end
+end
+
+task :setup_dev_new do
+  domains = %w(web1.dev web2.dev)
+  domains.each do |domain|
+    sh "mina setup domain=#{domain} force_asset_precompile=true"
+  end
+end
+
 task :deploy do
   domains = %w(37.187.249.111 149.202.72.152 149.202.198.6)
   domains.each do |domain|

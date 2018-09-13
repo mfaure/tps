@@ -17,7 +17,7 @@ set :domain, ENV['domain']
 set :repository, 'https://github.com/betagouv/tps.git'
 deploy_to = '/var/www/ds'
 set :deploy_to, deploy_to
-set :user, 'deploy'
+set :user, 'ds'
 branch = 'puma'
 set :branch, branch
 
@@ -32,7 +32,7 @@ set :shared_paths, [
   'tmp/sockets'
 ]
 
-set :rbenv_path, "/home/deploy/.rbenv/bin/rbenv"
+set :rbenv_path, "/home/ds/.rbenv/bin/rbenv"
 
 set :forward_agent, true # SSH forward_agent.
 #
@@ -51,7 +51,7 @@ task :setup do
   command %[mkdir -p "#{deploy_to}/shared/tmp/sockets"]
   command %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/sockets"]
 
-  command %[ln -s "#{deploy_to}/current" "/home/deploy/current"]
+  command %[ln -s "#{deploy_to}/current" "/home/ds/current"]
 end
 
 namespace :yarn do
@@ -92,7 +92,7 @@ end
 
 desc "Deploys the current version to the server."
 task :deploy do
-  command 'export PATH=$PATH:/home/deploy/.rbenv/bin:/home/deploy/.rbenv/shims'
+  command 'export PATH=$PATH:/home/ds/.rbenv/bin:/home/ds/.rbenv/shims'
   command 'export SECRET_KEY_BASE="fake_secret_to_precompile"'
   deploy do
     # Put things that will set up an empty directory into a fully set-up
