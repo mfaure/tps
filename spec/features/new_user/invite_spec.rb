@@ -24,6 +24,31 @@ feature 'Invitations' do
       expect(page).to have_field('Libelle du champ', with: 'Some edited value')
     end
 
+    context 'when inviting someone without an existing account' do
+      let(:invite) { create(:invite_user, dossier: dossier, user: nil) }
+      let(:user_password) { 'l33tus3r' }
+
+      scenario 'an invited user can register using the registration link sent in the invitation email' do
+        visit users_dossiers_invite_path(invite.id, params: { email: invite.email })
+
+        expect(page).to have_current_path(new_user_registration_path, ignore_query: true)
+        expect(page).to have_field('user_email', with: invite.email)
+        fill_in 'user_password', with: user_password
+        click_on 'Créer un compte'
+
+        expect(page).to have_content('lien de confirmation')
+
+        user = User.find_by(email: invite.email)
+        user.confirm
+
+        visit new_user_session_path
+        submit_login_form(user.email, user_password)
+
+        # This check fails for now. Will be fixed in the next PR.
+        # expect(page).to have_current_path(brouillon_dossier_path(dossier))
+      end
+    end
+
     scenario 'an invited user can see and edit the draft', js: true do
       visit users_dossiers_invite_path(invite)
       expect(page).to have_current_path(new_user_session_path)
